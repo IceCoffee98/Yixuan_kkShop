@@ -3,7 +3,13 @@ import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithRedirect,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -32,7 +38,8 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleSignInProvider);
 export const signInWithGoogleRedirct = () => signInWithRedirect(auth, googleSignInProvider);
 export const db = getFirestore();
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, otherInfos) => {
+  if (!userAuth) return;
   const userDocRef = doc(db, 'users', userAuth.uid);
   //   console.log(userDocRef);
   const userSnapshot = await getDoc(userDocRef);
@@ -44,6 +51,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...otherInfos,
       });
     } catch (error) {
       console.log('error creating the user', error.message);
@@ -52,4 +60,9 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   return userDocRef;
   //   console.log(userSnapshot);
   //   console.log(userSnapshot.exists());
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
