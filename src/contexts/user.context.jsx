@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
         // actually specify for google login which
         createUserDocumentFromAuth(user);
       }
-      console.log(user);
+      // console.log(user);
       setCurrentUser(user);
     });
     // console.log(unsubscribe);
