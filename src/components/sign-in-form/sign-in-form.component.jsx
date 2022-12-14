@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import FormInput from '../form-input/form-input.component';
-import Button from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import { UserContext } from '../../contexts/user.context';
-import './sign-in-form.styles.scss';
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
 
 import {
   signInWithGooglePopup,
@@ -59,7 +59,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div className='sign-up-container'>
+    <SignInContainer>
       <form onSubmit={onSubmitHandler}>
         <h1>I already have an account</h1>
         <span>Sign in with your email and password</span>
@@ -79,15 +79,17 @@ const SignInForm = () => {
           onChange={onChangeHander}
           value={password}
         />
-        <div className='buttons-container'>
-          <Button type='submit'>SIGN IN</Button>
+        <ButtonsContainer>
+          <Button type='submit' buttonType={BUTTON_TYPE_CLASSES.base}>
+            SIGN IN
+          </Button>
           {/* the default button type is submit, so we need manually set the button type */}
-          <Button type='button' buttonType='google' onClick={logGoogleUser}>
+          <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={logGoogleUser}>
             SIGN IN WITH GOOGLE
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 
