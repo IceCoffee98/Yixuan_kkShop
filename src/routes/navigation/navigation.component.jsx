@@ -15,7 +15,7 @@ import {
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+  const { isCartOpen } = useContext(CartContext);
   // console.log(currentUser);
 
   // console.log('Navigation Component Hit!!!');

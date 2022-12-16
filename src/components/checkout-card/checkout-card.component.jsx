@@ -21,15 +21,13 @@ const CheckoutCard = ({ cartItem }) => {
       <ImageContainer>
         <img src={imageUrl} alt={`${name}`} />
       </ImageContainer>
-      <BaseSpan>{name}</BaseSpan>
-
+      <BaseSpan> {name} </BaseSpan>
       <Quantity>
         <Arrow onClick={decrementQuantity}>&#10094;</Arrow>
         <Value>{quantity}</Value>
         <Arrow onClick={incrementQuantity}>&#10095;</Arrow>
       </Quantity>
-
-      <span className='price'>{price}</span>
+      <BaseSpan> {price}</BaseSpan>
       <RemoveButton onClick={removeAll}>&#10005;</RemoveButton>
     </CheckoutCardContainer>
   );
