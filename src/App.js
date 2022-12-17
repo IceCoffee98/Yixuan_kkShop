@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -6,7 +7,7 @@ import Navigation from './routes/navigation/navigation.component';
 import Authentication from './routes/authentication/authentication.component';
 import Shop from './routes/shop/shop.component';
 import Checkout from './routes/checkout/checkout.component';
-import { useEffect } from 'react';
+
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
@@ -24,12 +25,11 @@ const App = () => {
         // actually specify for google login which
         createUserDocumentFromAuth(user);
       }
-      // console.log(user);
       dispatch(setCurrentUser(user));
     });
-    // console.log(unsubscribe);
     return unsubscribe; // useEffect will run whatever returns from its callback;
   }, []);
+
   return (
     <Routes>
       <Route path='/' element={<Navigation />}>

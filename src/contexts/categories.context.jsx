@@ -5,7 +5,7 @@ import {
 } from '../utils/firebase/firebase.utils.js';
 
 export const CategoriesContext = createContext({
-  categories: new Map(),
+  categories: {},
 });
 
 export const CategoriesProvider = ({ children }) => {
@@ -19,7 +19,7 @@ export const CategoriesProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const categoryMap = await getCategoriesAndDocuments(new Map());
+      const categoryMap = await getCategoriesAndDocuments();
       setCategoriesMap(categoryMap);
     })();
   }, []);

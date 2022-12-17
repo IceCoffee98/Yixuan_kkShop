@@ -75,13 +75,18 @@ export const getCategoriesAndDocuments = async () => {
   const qry = query(collectionRef);
 
   const querySnapshot = await getDocs(qry);
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, new Map());
 
-  return categoryMap;
+  // 1. actually we want pull the base form of data, but we have done a scaffolding here.
+  // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+  //   const { title, items } = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
+
+  // return categoryMap;
+
+  //2. return the pure data instead, scaffold them later
+  return querySnapshot.docs.map((docSnapShot) => docSnapShot.data());
 };
 
 export const createUserDocumentFromAuth = async (userAuth, otherInfos) => {
