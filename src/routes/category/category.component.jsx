@@ -8,7 +8,7 @@ import ProductCard from '../../components/product-card/product-card.component';
 import { CategoryContainer, Title } from './category.styles';
 
 const Category = () => {
-  console.log('render/re-render category component');
+  // console.log('render/re-render category component');
 
   const { category } = useParams();
   const categoriesMap = useSelector(selectCategoriesMap);
@@ -19,7 +19,7 @@ const Category = () => {
   // ensure category changes only when category and map change
   useEffect(() => {
     setProducts(categoriesMap[category]);
-    console.log('setProduct Effect() called');
+    // console.log('setProduct Effect() called');
   }, [category, categoriesMap]);
 
   return (
