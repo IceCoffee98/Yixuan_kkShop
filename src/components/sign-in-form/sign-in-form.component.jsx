@@ -6,7 +6,7 @@ import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
 
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
+  getUserSnapShotFromDocByAuth,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
 

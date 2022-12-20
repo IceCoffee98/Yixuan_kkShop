@@ -89,7 +89,7 @@ export const getCategoriesAndDocuments = async () => {
   return querySnapshot.docs.map((docSnapShot) => docSnapShot.data());
 };
 
-export const createUserDocumentFromAuth = async (userAuth, otherInfos) => {
+export const getUserSnapShotFromDocByAuth = async (userAuth, otherInfos) => {
   if (!userAuth) return;
   const userDocRef = doc(db, 'users', userAuth.uid);
   //   console.log(userDocRef);
@@ -108,7 +108,7 @@ export const createUserDocumentFromAuth = async (userAuth, otherInfos) => {
       console.log('error creating the user', error.message);
     }
   }
-  return userDocRef;
+  return userSnapshot;
   //   console.log(userSnapshot);
   //   console.log(userSnapshot.exists());
 };
@@ -129,4 +129,17 @@ export const signOutUser = async () => signOut(auth);
 export const onAuthStateChangedListener = (callback) => {
   if (!callback) return;
   return onAuthStateChanged(auth, callback);
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
 };

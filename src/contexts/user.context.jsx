@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from 'react';
 import {
   onAuthStateChangedListener,
-  createUserDocumentFromAuth,
+  getUserSnapShotFromDocByAuth,
 } from '../utils/firebase/firebase.utils';
 // as the actual value you want to access
 
@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         // actually specify for google login which
-        createUserDocumentFromAuth(user);
+        getUserSnapShotFromDocByAuth(user);
       }
       // console.log(user);
       setCurrentUser(user);

@@ -10,24 +10,33 @@ import Checkout from './routes/checkout/checkout.component';
 
 import {
   onAuthStateChangedListener,
-  createUserDocumentFromAuth,
+  getUserSnapShotFromDocByAuth,
+  getCurrentUser,
 } from './utils/firebase/firebase.utils';
 
-import { setCurrentUser } from './store/user/user.action';
+import { checkUserSession, setCurrentUser } from './store/user/user.action';
 
 const App = () => {
   // we only have one dispatch instance;
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   // when mounted, run it once immediately
+  //   const unsubscribe = onAuthStateChangedListener((user) => {
+  //     if (user) {
+  //       // actually specify for google login which
+  //       createUserDocumentFromAuth(user);
+  //     }
+  //     dispatch(setCurrentUser(user));
+  //   });
+  //   return unsubscribe; // useEffect will run whatever returns from its callback;
+  // }, []);
+
+  // useEffect(() => {
+  //   getCurrentUser().then((user) => console.log(user));
+  // }, []);
+
   useEffect(() => {
-    // when mounted, run it once immediately
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        // actually specify for google login which
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-    return unsubscribe; // useEffect will run whatever returns from its callback;
+    dispatch(checkUserSession());
   }, []);
 
   return (
