@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
-import { UserContext } from '../../contexts/user.context';
+// import { UserContext } from '../../contexts/user.context';
 import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
-
+import { googleSignInStart, emailSignInStart } from '../../store/user/user.action';
 import {
   signInWithGooglePopup,
   getUserSnapShotFromDocByAuth,
@@ -15,21 +16,21 @@ const defaultInputFields = {
   password: '',
 };
 
-const logGoogleUser = async () => {
-  const { user } = await signInWithGooglePopup();
-  // console.log(response);
-  // const userDocRef = await createUserDocumentFromAuth(user);
-  // console.log(userDocRef);
-};
 const SignInForm = () => {
+  const dispatch = useDispatch();
   const [inputFields, setInputFields] = useState(defaultInputFields);
   // const { setCurrentUser } = useContext(UserContext);
   const { email, password } = inputFields;
   // console.log('Sign In Form');
-
+  const logGoogleUser = async () => {
+    // const { user } = await signInWithGooglePopup();
+    dispatch(googleSignInStart());
+    // console.log(response);
+    // const userDocRef = await createUserDocumentFromAuth(user);
+    // console.log(userDocRef);
+  };
   const onChangeHander = (event) => {
     const { name, value } = event.target;
-
     setInputFields({ ...inputFields, [name]: value });
   };
 
@@ -42,7 +43,7 @@ const SignInForm = () => {
     try {
       // const { user } = await signInAuthUserWithEmailAndPassword(email, password);
       // setCurrentUser(user);
-      await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
       resetInputFields();
     } catch (error) {
       // if the email has not been signed up,
