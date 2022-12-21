@@ -9,14 +9,17 @@ export const BackgroundImage = styled.div`
 `;
 
 export const Body = styled.div`
-  height: 90px;
-  padding: 0 25px;
+  /* height: 90px; */
+  width: 140px;
+  height: 100px;
+  /* padding: 12px 25px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 10px;
+  /* border: 1px solid black; */
+  box-shadow: 0px 0px 13px 18px rgb(0 0 0 / 58%);
+  border-radius: 100%;
   background-color: white;
   opacity: 0.7;
   position: absolute;
@@ -42,8 +45,8 @@ export const DirectoryItemContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
   border-radius: 15px 15px 15px 15px;
+  box-shadow: -12px 8px 10px -5px rgb(0 0 0 / 46%);
   margin: 0 7.5px 15px;
   overflow: hidden;
 
