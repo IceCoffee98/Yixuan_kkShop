@@ -16,6 +16,7 @@ export const Body = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px solid black;
+  border-radius: 10px;
   background-color: white;
   opacity: 0.7;
   position: absolute;
@@ -42,6 +43,7 @@ export const DirectoryItemContainer = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px solid black;
+  border-radius: 15px 15px 15px 15px;
   margin: 0 7.5px 15px;
   overflow: hidden;
 

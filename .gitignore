@@ -12,6 +12,7 @@
 /build
 
 .env
+.prettierrc
 
 # misc
 .DS_Store

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 // import { UserContext } from '../../contexts/user.context';
-import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
+import { SignInContainer, SignUpLink, ButtonsContainer } from './sign-in-form.styles';
 import { googleSignInStart, emailSignInStart } from '../../store/user/user.action';
 import {
   signInWithGooglePopup,
@@ -18,6 +21,7 @@ const defaultInputFields = {
 
 const SignInForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [inputFields, setInputFields] = useState(defaultInputFields);
   // const { setCurrentUser } = useContext(UserContext);
   const { email, password } = inputFields;
@@ -28,6 +32,7 @@ const SignInForm = () => {
     // console.log(response);
     // const userDocRef = await createUserDocumentFromAuth(user);
     // console.log(userDocRef);
+    navigate('/');
   };
   const onChangeHander = (event) => {
     const { name, value } = event.target;
@@ -44,6 +49,7 @@ const SignInForm = () => {
       // const { user } = await signInAuthUserWithEmailAndPassword(email, password);
       // setCurrentUser(user);
       dispatch(emailSignInStart(email, password));
+      navigate('/');
       resetInputFields();
     } catch (error) {
       // if the email has not been signed up,
@@ -63,7 +69,12 @@ const SignInForm = () => {
     <SignInContainer>
       <form onSubmit={onSubmitHandler}>
         <h1>I already have an account</h1>
+        <div>
+          Don't have account yet?
+          <SignUpLink to='/auth/sign-up'> Create Account</SignUpLink>
+        </div>
         <span>Sign in with your email and password</span>
+
         <FormInput
           label='email'
           type='email'
@@ -80,13 +91,15 @@ const SignInForm = () => {
           onChange={onChangeHander}
           value={password}
         />
+
         <ButtonsContainer>
           <Button type='submit' buttonType={BUTTON_TYPE_CLASSES.base}>
             SIGN IN
           </Button>
           {/* the default button type is submit, so we need manually set the button type */}
           <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={logGoogleUser}>
-            SIGN IN WITH GOOGLE
+            <FontAwesomeIcon icon={faGoogle} />
+            &nbsp; SIGN IN WITH GOOGLE
           </Button>
         </ButtonsContainer>
       </form>

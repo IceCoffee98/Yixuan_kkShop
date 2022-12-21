@@ -8,6 +8,8 @@ export const CartItemContainer = styled.div`
 `;
 
 export const Img = styled.img`
+  border-radius: 6px;
+  box-shadow: -1px 1px 2px 2px rgb(0 0 0 / 32%);
   width: 30%;
 `;
 
