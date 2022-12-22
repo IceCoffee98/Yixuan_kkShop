@@ -1,5 +1,10 @@
 import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
-import { createAction, Action, ActionWithPayload } from '../../utils/reducer/reducer.util';
+import {
+  createAction,
+  Action,
+  ActionWithPayload,
+  withMatcher,
+} from '../../utils/reducer/reducer.util';
 import { CATEGORIES_ACTION_TYPES, Categories } from './categories.types';
 
 export type FetchCategoriesStart = Action<CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START>;
@@ -18,14 +23,19 @@ export type CategoryiesAction =
   | FetchCategoriesSuccess
   | FetchCategoriesFailed;
 
-export const fetchCategoriesStart = (): FetchCategoriesStart =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
+export const fetchCategoriesStart = withMatcher(
+  (): FetchCategoriesStart => createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
+);
 
-export const fetchCategoriesSuccess = (categoriesArr: Categories[]): FetchCategoriesSuccess =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categoriesArr);
+export const fetchCategoriesSuccess = withMatcher(
+  (categoriesArr: Categories[]): FetchCategoriesSuccess =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categoriesArr)
+);
 
-export const fetchCategoriesFailed = (error: Error): FetchCategoriesFailed =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL, error);
+export const fetchCategoriesFailed = withMatcher(
+  (error: Error): FetchCategoriesFailed =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL, error)
+);
 
 // export const fetchCategoriesAsync = () => async (dispatch) => {
 //   dispatch(fetchCategoriesStart());
