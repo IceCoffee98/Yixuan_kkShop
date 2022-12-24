@@ -2,7 +2,7 @@ import { Fragment, useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutStart } from '../../store/user/user.action';
-import { selectCurrentUser } from '../../store/user/user.selector.ts';
+import { selectCurrentUser } from '../../store/user/user.selector';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 // import { CartContext } from '../../contexts/cart.context';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
@@ -17,7 +17,7 @@ import {
   NavLinksContainer,
   NavLink,
   UserNameLabel,
-} from './navigation.styles.jsx';
+} from './navigation.styles';
 
 const Navigation = () => {
   const dispatch = useDispatch();
