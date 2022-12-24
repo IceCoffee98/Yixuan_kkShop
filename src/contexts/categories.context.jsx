@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from 'react';
 import {
   addCollectionAndDocuments,
   getCategoriesAndDocuments,
-} from '../utils/firebase/firebase.utils.js';
+} from '../utils/firebase/firebase.utils';
 
 export const CategoriesContext = createContext({
   categories: {},

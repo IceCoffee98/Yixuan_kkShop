@@ -1,5 +1,5 @@
 import { all, call } from 'redux-saga/effects';
-import { categoriesSagas } from './categories/category.saga';
+import { categoriesSagas } from './category/category.saga';
 import { userSagas } from './user/user.saga';
 
 export function* rootSaga() {

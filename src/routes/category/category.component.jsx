@@ -6,7 +6,7 @@ import Spinner from '../../components/spinner/spinner.component';
 import {
   selectCategoriesMap,
   selectCategoriesIsLoading,
-} from '../../store/categories/categories.selector';
+} from '../../store/category/category.selector';
 // import { CategoriesContext } from '../../contexts/categories.context';
 import ProductCard from '../../components/product-card/product-card.component';
 import { CategoryContainer, Title } from './category.styles';
