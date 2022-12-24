@@ -107,7 +107,7 @@ export type UserData = {
 
 export const getUserSnapShotFromDocByAuth = async (
   userAuth: User,
-  otherInfos: AdditionalInformation
+  otherInfos?: AdditionalInformation
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return;
   const userDocRef = doc(db, 'users', userAuth.uid);
