@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +13,8 @@ import {
   getUserSnapShotFromDocByAuth,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
+
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 
 const defaultInputFields = {
   email: '',
@@ -34,7 +36,7 @@ const SignInForm = () => {
     // console.log(userDocRef);
     navigate('/');
   };
-  const onChangeHander = (event) => {
+  const onChangeHander = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setInputFields({ ...inputFields, [name]: value });
   };
@@ -43,7 +45,7 @@ const SignInForm = () => {
     setInputFields(defaultInputFields);
   };
 
-  const onSubmitHandler = async (event) => {
+  const onSubmitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       // const { user } = await signInAuthUserWithEmailAndPassword(email, password);
@@ -54,10 +56,10 @@ const SignInForm = () => {
     } catch (error) {
       // if the email has not been signed up,
       // Error (auth/user-not-found):
-      console.log(error);
-      if (error.code === 'auth/wrong-password') {
+      const errorCode = (error as AuthError).code;
+      if (errorCode === AuthErrorCodes.INVALID_PASSWORD) {
         alert('incorrect password for email');
-      } else if (error.code === 'auth/user-not-found') {
+      } else if (errorCode === AuthErrorCodes.USER_DELETED) {
         alert('no user associated with this email');
       } else {
         console.log(error);
