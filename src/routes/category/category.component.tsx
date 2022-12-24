@@ -11,10 +11,15 @@ import {
 import ProductCard from '../../components/product-card/product-card.component';
 import { CategoryContainer, Title } from './category.styles';
 
+// enforce the 'category' exists
+type CategoryRouteParams = {
+  category: string;
+};
+
 const Category = () => {
   // console.log('render/re-render category component');
 
-  const { category } = useParams();
+  const { category } = useParams<keyof CategoryRouteParams>() as CategoryRouteParams;
   const categoriesMap = useSelector(selectCategoriesMap);
   const categoriesIsLoading = useSelector(selectCategoriesIsLoading);
   // const { categoriesMap } = useContext(CategoriesContext);
