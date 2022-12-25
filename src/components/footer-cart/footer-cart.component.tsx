@@ -1,8 +1,14 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { FooterCardContainer, FooterCardTitle } from './footer-cart.styles';
-
-const FooterCard = ({ info }) => {
-  const { id, title, contents } = info;
+export type FooterCardProps = {
+  info: {
+    title: string;
+    contents: string[];
+  };
+};
+const FooterCard: FC<FooterCardProps> = ({ info }) => {
+  const { title, contents } = info;
   return (
     <FooterCardContainer>
       <FooterCardTitle>{title}</FooterCardTitle>

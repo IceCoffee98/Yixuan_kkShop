@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { GithubIcon } from './social-icons.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons';

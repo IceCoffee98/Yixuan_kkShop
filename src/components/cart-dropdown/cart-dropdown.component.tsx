@@ -5,7 +5,7 @@ import { CartContext } from '../../contexts/cart.context';
 import { selectCartItems } from '../../store/cart/cart.selector';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import CartItem from '../cart-item/cart-item.component';
-import { CartDropDownContainer, EmptyMessage, CartItems } from './cart-dropdown.styles.jsx';
+import { CartDropDownContainer, EmptyMessage, CartItems } from './cart-dropdown.styles';
 
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);

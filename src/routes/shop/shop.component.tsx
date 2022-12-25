@@ -5,9 +5,9 @@ import CategoriesPreview from '../categories-preview/categories-preview.componen
 import Category from '../category/category.component';
 
 import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
-import { setCategories } from '../../store/category/category.action';
+// import { setCategories } from '../../store/category/category.action';
 
-import { fetchCategoriesAsync, fetchCategoryStart } from '../../store/category/category.action';
+import { fetchCategoryStart } from '../../store/category/category.action';
 
 const Shop = () => {
   // we only have one dispatch instance;

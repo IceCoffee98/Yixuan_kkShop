@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems } from '../../store/cart/cart.selector';
 import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../../store/cart/cart.action';
@@ -12,8 +12,11 @@ import {
   Value,
   RemoveButton,
 } from './checkout-card.styles';
-
-const CheckoutCard = ({ cartItem }) => {
+import { CartItem } from '../../store/cart/cart.types';
+type CheckoutCardProps = {
+  cartItem: CartItem;
+};
+const CheckoutCard: FC<CheckoutCardProps> = ({ cartItem }) => {
   const { name, imageUrl, quantity, price } = cartItem;
   const dispatch = useDispatch();
   // const { removeItemFromCart, addItemToCart, clearItemFromCart } = useContext(CartContext);
