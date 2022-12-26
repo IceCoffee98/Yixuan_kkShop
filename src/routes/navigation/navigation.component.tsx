@@ -17,6 +17,7 @@ import {
   NavLinksContainer,
   NavLink,
   UserNameLabel,
+  MainContentContainer,
 } from './navigation.styles';
 
 const Navigation = () => {
@@ -55,7 +56,9 @@ const Navigation = () => {
         </NavLinksContainer>
         {isCartOpen && <CartDropdown />}
       </NavigationContainer>
-      <Outlet />
+      <MainContentContainer>
+        <Outlet />
+      </MainContentContainer>
       <Footer />
     </Fragment>
   );

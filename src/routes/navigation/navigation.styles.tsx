@@ -38,3 +38,8 @@ export const UserNameLabel = styled.label`
   font-size: 25px;
   font-weight: 700;
 `;
+
+export const MainContentContainer = styled.div`
+  width: 1000px;
+  margin: 0 auto;
+`;
