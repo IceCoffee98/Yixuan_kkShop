@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { CartContext } from '../../contexts/cart.context';
@@ -10,8 +10,13 @@ import { CartDropDownContainer, EmptyMessage, CartItems } from './cart-dropdown.
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
   // const { cartItems } = useContext(CartContext);
+  // const [temp, setTemp] = useState('A');
   const navigate = useNavigate();
-  const goToCheckoutHandler = () => navigate('/checkout');
+  const goToCheckoutHandler = useCallback(() => {
+    navigate('/checkout');
+    // console.log(temp);
+  }, []);
+
   return (
     <CartDropDownContainer>
       <CartItems>
@@ -24,6 +29,9 @@ const CartDropdown = () => {
       <Button buttonType={BUTTON_TYPE_CLASSES.base} onClick={goToCheckoutHandler}>
         GO TO CHECKOUT
       </Button>
+      {/* <Button buttonType={BUTTON_TYPE_CLASSES.base} onClick={() => setTemp('B')}> */}
+      {/* UPDATE */}
+      {/* </Button> */}
     </CartDropDownContainer>
   );
 };
