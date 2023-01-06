@@ -1,4 +1,5 @@
 import { compose, createStore, applyMiddleware, Middleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './root-saga';
@@ -8,6 +9,10 @@ import { rootReducer } from './root-reducer';
 import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { loggerMiddleware } from './middleware/logger';
+
+import categoryReducer from './category/category.slice';
+import cartReducer from './cart/cart.slice';
+import userReducer from './user/user.slice';
 
 // root-reducer(combination of all our reducers)
 
@@ -54,3 +59,15 @@ export const store = createStore(persistedReducer, undefined, composeEnhancers);
 sageMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
+
+// ===================== migrating to redux toolkit =====================
+const sstore = configureStore({
+  reducer: {
+    category: categoryReducer,
+    cart: cartReducer,
+    user: userReducer,
+  },
+});
+
+export type NewRootState = ReturnType<typeof sstore.getState>;
+export type AppDispatch = typeof sstore.dispatch;
