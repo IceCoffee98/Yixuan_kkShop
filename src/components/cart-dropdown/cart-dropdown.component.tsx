@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { CartContext } from '../../contexts/cart.context';
-import { selectCartItems } from '../../store/cart/cart.selector';
+import { selectCartItems } from '../../store/cart/cart.slice';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import CartItem from '../cart-item/cart-item.component';
 import { CartDropDownContainer, EmptyMessage, CartItems } from './cart-dropdown.styles';

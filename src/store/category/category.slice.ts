@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Category } from './category.types';
-import type { NewRootState as RootState } from '../store';
+import type { RootState } from '../store';
 import { CategoryMap } from './category.types';
 
 export type CategoryState = {

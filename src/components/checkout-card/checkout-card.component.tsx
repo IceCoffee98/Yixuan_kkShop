@@ -1,7 +1,11 @@
 import { useContext, FC, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCartItems } from '../../store/cart/cart.selector';
-import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../../store/cart/cart.action';
+import {
+  selectCartItems,
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart,
+} from '../../store/cart/cart.slice';
 // import { CartContext } from '../../contexts/cart.context';
 import {
   CheckoutCardContainer,

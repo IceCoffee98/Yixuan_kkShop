@@ -11,7 +11,7 @@ import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import { UserContext } from '../../contexts/user.context';
 import { SignUpContainer } from './sign-up-form.styles';
-import { signUpStart } from '../../store/user/user.action';
+import { signUpStart } from '../../store/user/user.slice';
 import { useNavigate } from 'react-router-dom';
 
 const defaultFormFields = {
@@ -49,7 +49,7 @@ const SignUpForm = () => {
       // setCurrentUser(user);
       // user.updateProfile({ displayName });
       // getUserSnapShotFromDocByAuth(user, { displayName });
-      dispatch(signUpStart(email, password, displayName));
+      dispatch(signUpStart({ email, password, displayName }));
 
       resetFormFields();
       navigate('/');
