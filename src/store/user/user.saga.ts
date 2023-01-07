@@ -1,7 +1,6 @@
-// import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { takeLatest, put, all, call } from 'typed-redux-saga/macro';
-import { User } from 'firebase/auth';
-import { USER_ACTION_TYPES } from './user.types';
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import {
   signInSuccess,
   signInFailed,
@@ -14,9 +13,6 @@ import {
   emailSignInStart,
   signUpStart,
   signOutStart,
-  SignUpStart,
-  EmailSignInStart,
-  SignUpSuccess,
 } from './user.slice';
 
 import {
@@ -26,9 +22,11 @@ import {
   signInWithGooglePopup,
   createAuthUserWithEmailAndPassword,
   signOutUser,
-  AdditionalInformation,
 } from '../../utils/firebase/firebase.utils';
-import { PayloadAction } from '@reduxjs/toolkit';
+
+import type { User } from 'firebase/auth';
+import type { AdditionalInformation } from '../../utils/firebase/firebase.utils';
+import type { SignUpStart, EmailSignInStart, SignUpSuccess } from './user.types';
 
 export function* getSnapShotFromUserAuth(
   userAuth: User,
@@ -36,10 +34,7 @@ export function* getSnapShotFromUserAuth(
 ) {
   try {
     const userSnapShot = yield* call(getUserSnapShotFromDocByAuth, userAuth, additionalDetails);
-    // console.log(userSnapShot);
-    // console.log(userSnapShot.data());
     if (userSnapShot) {
-      // the id attribute comes from snapshot object itself
       yield* put(signInSuccess({ id: userSnapShot.id, ...userSnapShot.data() }));
     }
   } catch (error) {
@@ -74,7 +69,6 @@ export function* signUp({ payload: { email, password, displayName } }: PayloadAc
     const userCredential = yield* call(createAuthUserWithEmailAndPassword, email, password);
     if (userCredential) {
       const { user } = userCredential;
-      // yield * put(signUpSuccess(user, { displayName }));
       yield* put(signUpSuccess({ user, additionalDetails: { displayName } }));
     }
   } catch (error) {

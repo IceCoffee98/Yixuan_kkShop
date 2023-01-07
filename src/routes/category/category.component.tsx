@@ -1,35 +1,27 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import Spinner from '../../components/spinner/spinner.component';
+import ProductCard from '../../components/product-card/product-card.component';
+import { useAppSelector } from '../../store/hooks';
+import { CategoryContainer, Title } from './category.styles';
+
 import {
   selectCategoriesMap,
   selectCategoriesIsLoading,
-} from '../../store/category/category.selector';
-// import { CategoriesContext } from '../../contexts/categories.context';
-import ProductCard from '../../components/product-card/product-card.component';
-import { CategoryContainer, Title } from './category.styles';
+} from '../../store/category/category.slice';
 
-// enforce the 'category' exists
 type CategoryRouteParams = {
   category: string;
 };
 
 const Category = () => {
-  // console.log('render/re-render category component');
-
   const { category } = useParams<keyof CategoryRouteParams>() as CategoryRouteParams;
-  const categoriesMap = useSelector(selectCategoriesMap);
-  const categoriesIsLoading = useSelector(selectCategoriesIsLoading);
-  // const { categoriesMap } = useContext(CategoriesContext);
+  const categoriesMap = useAppSelector(selectCategoriesMap);
+  const categoriesIsLoading = useAppSelector(selectCategoriesIsLoading);
   const [products, setProducts] = useState(categoriesMap[category]);
-  // console.log(category);
-
-  // ensure category changes only when category and map change
   useEffect(() => {
     setProducts(categoriesMap[category]);
-    // console.log('setProduct Effect() called');
   }, [category, categoriesMap]);
 
   return (

@@ -1,14 +1,8 @@
-import { AnyAction } from 'redux';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Category } from './category.types';
-import type { RootState } from '../store';
-import { CategoryMap } from './category.types';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-export type CategoryState = {
-  readonly categories: Category[];
-  readonly isLoading: boolean;
-  readonly error: Error | null;
-};
+import type { RootState } from '../store';
+import type { CategoryMap, CategoryState, Category } from './category.types';
 
 export const initialState: CategoryState = {
   categories: [],
@@ -37,14 +31,26 @@ export const categorySlice = createSlice({
 export const { fetchCategoryStart, fetchCategorySuccess, fetchCategoryFailed } =
   categorySlice.actions;
 
-export const selectCategories = (state: RootState) => state.category.categories;
-export const selectCategoriesMap = (state: RootState) =>
-  state.category.categories.reduce((acc, category) => {
-    const { title, items } = category;
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {} as CategoryMap);
+const selectCategoriesReducer = (state: RootState): CategoryState => state.category;
 
-export const selectCategoriesIsLoading = (state: RootState) => state.category.isLoading;
+export const selectCategories = createSelector(
+  [selectCategoriesReducer],
+  (categoriesSlice) => categoriesSlice.categories
+);
+
+export const selectCategoriesMap = createSelector(
+  [selectCategories],
+  (categories): CategoryMap =>
+    categories.reduce((acc, category) => {
+      const { title, items } = category;
+      acc[title.toLowerCase()] = items;
+      return acc;
+    }, {} as CategoryMap)
+);
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoriesReducer],
+  (categoriesSlice) => categoriesSlice.isLoading
+);
 
 export default categorySlice.reducer;

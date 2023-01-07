@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCartTotal } from '../../store/cart/cart.selector';
-import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectCartTotal } from '../../store/cart/cart.slice';
+import { selectCurrentUser } from '../../store/user/user.slice';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { StripeCardElement } from '@stripe/stripe-js';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';

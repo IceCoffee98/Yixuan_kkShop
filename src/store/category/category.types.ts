@@ -1,9 +1,3 @@
-export enum CATEGORY_ACTION_TYPES {
-  FETCH_CATEGORY_START = 'categories/FETCH_CATEGORIES_START',
-  FETCH_CATEGORY_SUCCESS = 'categories/FETCH_CATEGORIES_SUCCESS',
-  FETCH_CATEGORY_FAIL = 'categories/FETCH_CATEGORIES_FAIL',
-}
-
 export type CategoryItem = {
   id: number;
   imageUrl: string;
@@ -20,4 +14,10 @@ export type Category = {
 
 export type CategoryMap = {
   [key: string]: CategoryItem[];
+};
+
+export type CategoryState = {
+  readonly categories: Category[];
+  readonly isLoading: boolean;
+  readonly error: Error | null;
 };

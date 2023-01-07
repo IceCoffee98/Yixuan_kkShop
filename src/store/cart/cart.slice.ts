@@ -1,13 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AnyAction } from 'redux';
-import type { RootState } from '../store';
-import { CartItem } from './cart.types';
-import { CategoryItem } from '../category/category.types';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 
-export type CartState = {
-  readonly isCartOpen: boolean;
-  readonly cartItems: CartItem[];
-};
+import type { RootState } from '../store';
+import type { CartItem, CartState } from './cart.types';
+import type { CategoryItem } from '../category/category.types';
 
 export const initialState: CartState = {
   isCartOpen: false,
@@ -29,24 +26,25 @@ export const cartSlice = createSlice({
 
 export const { setCartItems, setIsCartOpen } = cartSlice.actions;
 
-export const selectIsCartOpen = (state: RootState) => {
-  return state.cart.isCartOpen;
-};
+const selectCartReducer = (state: RootState) => state.cart;
 
-export const selectCartItems = (state: RootState) => {
-  return state.cart.cartItems;
-};
+export const selectIsCartOpen = createSelector(
+  [selectCartReducer],
+  (selectCartReducer) => selectCartReducer.isCartOpen
+);
 
-export const selectCartCount = (state: RootState) => {
-  return state.cart.cartItems.reduce((count, cartItem) => count + cartItem.quantity, 0);
-};
+export const selectCartItems = createSelector(
+  [selectCartReducer],
+  (selectCartReducer) => selectCartReducer.cartItems
+);
 
-export const selectCartTotal = (state: RootState) => {
-  return state.cart.cartItems.reduce(
-    (totalCost, cartItem) => totalCost + cartItem.quantity * cartItem.price,
-    0
-  );
-};
+export const selectCartCount = createSelector([selectCartItems], (selectCartItems) =>
+  selectCartItems.reduce((count, cartItem) => count + cartItem.quantity, 0)
+);
+
+export const selectCartTotal = createSelector([selectCartItems], (selectCartItems) =>
+  selectCartItems.reduce((count, cartItem) => count + cartItem.quantity, 0)
+);
 
 export const addItemToCart = (cartItems: CartItem[], productToAdd: CategoryItem) => {
   const newCartItems = getArrayAfterAddToCartItems(cartItems, productToAdd);

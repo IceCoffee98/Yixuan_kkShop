@@ -13,7 +13,6 @@ const FormInput: FC<FormInputProps> = ({ label, ...otherInfos }) => {
             otherInfos.value && typeof otherInfos.value === 'string' && otherInfos.value.length
           )}
         >
-          {/* <label className={`form-input-label`}> */}
           {label}
         </FormInputLabel>
       )}
