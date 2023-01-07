@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +6,6 @@ const SocianIcons = () => {
   return (
     <SocialIconsContainer>
       <IconLink href='#'>
-        {/*  target='_blank' */}
         <FontAwesomeIcon icon={faAddressCard} />
       </IconLink>
       <IconLink href='https://github.com/IceCoffee98/crwn-clothing'>

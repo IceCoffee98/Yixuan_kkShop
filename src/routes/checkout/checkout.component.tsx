@@ -1,16 +1,12 @@
-// import { useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector';
-// import { CartContext } from '../../contexts/cart.context';
 import CheckoutCard from '../../components/checkout-card/checkout-card.component';
 import PaymentForm from '../../components/payment-form/payment-form.component';
-
+import { useAppSelector } from '../../store/hooks';
+import { selectCartItems, selectCartTotal } from '../../store/cart/cart.slice';
 import { CheckoutContainer, CheckoutHeader, HeaderBlock, Total } from './checkout.styles';
 
 const Checkout = () => {
-  // const { cartItems, total } = useContext(CartContext);
-  const cartItems = useSelector(selectCartItems);
-  const total = useSelector(selectCartTotal);
+  const cartItems = useAppSelector(selectCartItems);
+  const total = useAppSelector(selectCartTotal);
   return (
     <CheckoutContainer>
       <CheckoutHeader>

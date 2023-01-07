@@ -1,18 +1,12 @@
-import { useState, useContext, FormEvent, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  createAuthUserWithEmailAndPassword,
-  getUserSnapShotFromDocByAuth,
-} from '../../utils/firebase/firebase.utils';
-
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { AuthError, AuthErrorCodes } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
+import { useAppDispatch } from '../../store/hooks';
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
-import { UserContext } from '../../contexts/user.context';
 import { SignUpContainer } from './sign-up-form.styles';
-import { signUpStart } from '../../store/user/user.action';
-import { useNavigate } from 'react-router-dom';
+import { signUpStart } from '../../store/user/user.slice';
 
 const defaultFormFields = {
   displayName: '',
@@ -22,11 +16,10 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  // const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -45,12 +38,7 @@ const SignUpForm = () => {
       return;
     }
     try {
-      // const { user } = await createAuthUserWithEmailAndPassword(email, password);
-      // setCurrentUser(user);
-      // user.updateProfile({ displayName });
-      // getUserSnapShotFromDocByAuth(user, { displayName });
-      dispatch(signUpStart(email, password, displayName));
-
+      dispatch(signUpStart({ email, password, displayName }));
       resetFormFields();
       navigate('/');
     } catch (error) {

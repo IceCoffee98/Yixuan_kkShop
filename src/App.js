@@ -10,32 +10,11 @@ const Authentication = lazy(() => import('./routes/authentication/authentication
 const Shop = lazy(() => import('./routes/shop/shop.component'));
 const Checkout = lazy(() => import('./routes/checkout/checkout.component'));
 
-import {
-  onAuthStateChangedListener,
-  getUserSnapShotFromDocByAuth,
-  getCurrentUser,
-} from './utils/firebase/firebase.utils';
-
-import { checkUserSession, setCurrentUser } from './store/user/user.action';
+import { checkUserSession } from './store/user/user.slice';
 
 const App = () => {
   // we only have one dispatch instance;
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   // when mounted, run it once immediately
-  //   const unsubscribe = onAuthStateChangedListener((user) => {
-  //     if (user) {
-  //       // actually specify for google login which
-  //       createUserDocumentFromAuth(user);
-  //     }
-  //     dispatch(setCurrentUser(user));
-  //   });
-  //   return unsubscribe; // useEffect will run whatever returns from its callback;
-  // }, []);
-
-  // useEffect(() => {
-  //   getCurrentUser().then((user) => console.log(user));
-  // }, []);
 
   useEffect(() => {
     dispatch(checkUserSession());

@@ -1,8 +1,13 @@
-import { useContext, FC, memo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectCartItems } from '../../store/cart/cart.selector';
-import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../../store/cart/cart.action';
-// import { CartContext } from '../../contexts/cart.context';
+import { FC, memo } from 'react';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+
+import {
+  selectCartItems,
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart,
+} from '../../store/cart/cart.slice';
+
 import {
   CheckoutCardContainer,
   ImageContainer,
@@ -12,15 +17,17 @@ import {
   Value,
   RemoveButton,
 } from './checkout-card.styles';
-import { CartItem } from '../../store/cart/cart.types';
+
+import type { CartItem } from '../../store/cart/cart.types';
+
 type CheckoutCardProps = {
   cartItem: CartItem;
 };
+
 const CheckoutCard: FC<CheckoutCardProps> = memo(({ cartItem }) => {
   const { name, imageUrl, quantity, price } = cartItem;
-  const dispatch = useDispatch();
-  // const { removeItemFromCart, addItemToCart, clearItemFromCart } = useContext(CartContext);
-  const cartItems = useSelector(selectCartItems);
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector(selectCartItems);
 
   const incrementQuantity = () => dispatch(addItemToCart(cartItems, cartItem));
   const decrementQuantity = () => dispatch(removeItemFromCart(cartItems, cartItem));

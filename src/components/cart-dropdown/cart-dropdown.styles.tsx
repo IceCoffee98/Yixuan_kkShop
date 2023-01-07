@@ -32,17 +32,3 @@ export const CartItems = styled.div`
   flex-direction: column;
   overflow: scroll;
 `;
-
-// .cart-dropdown-container {
-
-//   .empty-message {
-
-//   }
-
-//   .cart-items {
-
-//   }
-
-//   button {
-//   }
-// }

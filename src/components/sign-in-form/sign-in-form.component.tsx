@@ -1,19 +1,13 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import FormInput from '../form-input/form-input.component';
-import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
-// import { UserContext } from '../../contexts/user.context';
-import { SignInContainer, SignUpLink, ButtonsContainer } from './sign-in-form.styles';
-import { googleSignInStart, emailSignInStart } from '../../store/user/user.action';
-import {
-  signInWithGooglePopup,
-  getUserSnapShotFromDocByAuth,
-  signInAuthUserWithEmailAndPassword,
-} from '../../utils/firebase/firebase.utils';
 
+import FormInput from '../form-input/form-input.component';
+import { useAppDispatch } from '../../store/hooks';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
+import { SignInContainer, SignUpLink, ButtonsContainer } from './sign-in-form.styles';
+import { googleSignInStart, emailSignInStart } from '../../store/user/user.slice';
 import { AuthError, AuthErrorCodes } from 'firebase/auth';
 
 const defaultInputFields = {
@@ -22,20 +16,16 @@ const defaultInputFields = {
 };
 
 const SignInForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [inputFields, setInputFields] = useState(defaultInputFields);
-  // const { setCurrentUser } = useContext(UserContext);
   const { email, password } = inputFields;
-  // console.log('Sign In Form');
+
   const logGoogleUser = async () => {
-    // const { user } = await signInWithGooglePopup();
     dispatch(googleSignInStart());
-    // console.log(response);
-    // const userDocRef = await createUserDocumentFromAuth(user);
-    // console.log(userDocRef);
     navigate('/');
   };
+
   const onChangeHander = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setInputFields({ ...inputFields, [name]: value });
@@ -48,14 +38,10 @@ const SignInForm = () => {
   const onSubmitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      // const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-      // setCurrentUser(user);
-      dispatch(emailSignInStart(email, password));
+      dispatch(emailSignInStart({ email, password }));
       navigate('/');
       resetInputFields();
     } catch (error) {
-      // if the email has not been signed up,
-      // Error (auth/user-not-found):
       const errorCode = (error as AuthError).code;
       if (errorCode === AuthErrorCodes.INVALID_PASSWORD) {
         alert('incorrect password for email');
